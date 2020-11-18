@@ -1,2 +1,2 @@
 %testing fetching
-fprintf("Download of 'Meaning_of_Life.txt' from Github was successful...")
+fprintf("Downloading 'Meaning_of_Life.txt' from Github...")
