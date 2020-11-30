@@ -1,2 +1,7 @@
-%main
-fprintf("Hello world!")
+
+
+l1 = 1.5 ; l2 = 2;
+I1 = 10 ; I2 = 20;
+m1 = 5 ; m2 = 2;
+k1 = 3 ; k2 = 5;
+params = [l1,l2,I1,I2,m1,m2,k1,k2];
