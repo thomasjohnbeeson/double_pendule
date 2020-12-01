@@ -58,7 +58,7 @@ ax.NextPlot = 'replaceChildren'
 for frame = 1:length(t_rk4)
 plot(ax,x1(frame),y1(frame),'ro','MarkerSize',10)
 plot(ax,x2(frame),y2(frame),'bo','MarkerSize',10)
-animatedline([0,x1(frame)],[0,y1(frame)],'Color','r','LineWidth',2)
+
 animatedline([x1(frame),x2(frame)],[y1(frame),y2(frame)],'Color','b','LineWidth',2)
 
 drawnow

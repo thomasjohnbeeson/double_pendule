@@ -6,7 +6,7 @@ function [t,etat] = EI(etat_initial,params,dt,tf)
 % Cette fonction utilise la méthode de Euler implicite pour 
 % résoudre le système d'équations différentielles dy/dt = f(t,y) sur une
 % période de temps [0;tf]. Les 4 équations différentielles qui composent
-% dy/dt sont les vitesses angualaires theta_dot_1 et theta_dot_2, ainsi que
+% dy/dt sont les vitesses angulaires theta_dot_1 et theta_dot_2, ainsi que
 % les accélérations angulaires theta_dotdot_1 et theta_dotdot_2.
 % La fonction utilise la méthode Newton-Raphson avec une Jacobienne 
 % numérique pour résoudre les équations non-linéaires provenant de la forme
@@ -41,8 +41,8 @@ etat = [etat_initial];
 
 % On defini ensuite les paramètres de résolution d'équations non-linéaires
 % par newton-Raphson
-N = 10000; % Nombre d'itérations maximales pour résoudre une équation non-linéaire
-tol = 1e-8; % Précision visée par la résolution non-linéaire
+N = 1000; % Nombre d'itérations maximales pour résoudre une équation non-linéaire
+tol = 1e-7; % Précision visée par la résolution non-linéaire
 
 % Boucle de résolution des équations différentielles
 while t(end) < tf
