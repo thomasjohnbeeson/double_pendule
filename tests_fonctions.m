@@ -1,4 +1,6 @@
 %Cette fonction sert à effectuer des tests sur les fonctions du projet
+clc
+clear all
 
 % TEST DE LA FONCTION f.m
 
@@ -21,12 +23,17 @@
 % TEST DE LA FONCTION RK4
 
 etat_initial = [pi/2;pi/2;0;0];
-tf = 120;
-dt = 0.01;
+tf = 40;
+dt = 0.001;
 
-[t,etat] = RK4(etat_initial,params,dt,tf);
-plot(t,etat)
-legend("theta_1","theta_2","theta_dot_1","theta_dot_2")
+[t_rk4,etat_rk4] = RK4(etat_initial,params,dt,tf);
+[t_ei,etat_ei] = EI(etat_initial,params,dt,tf)
+
+figure
+hold on
+plot(t_rk4,etat_rk4(1:2,:))
+plot(t_ei,etat_ei(1:2,:))
+legend("theta_1 RK4","theta_2 RK4","theta_1 EI","theta_2 EI")
 
 
 

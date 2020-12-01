@@ -18,7 +18,7 @@ function [t,etat] = RK4(etat_initial,params,dt,tf)
 % - dt : Pas de temps en choisi pour le calcul 
 % - tf : Temps de simulation
 %
-% Argument de sortie : 
+% Arguments de sortie : 
 % - t : Vecteur ligne 1xn contenant les n valeurs de temps auxquelles le 
 % système d'équations différentielles a été évalué, en incluant le temps 0.
 % - etat : Matrice 4xn décrivant l'état du système dans le temps, soit la
