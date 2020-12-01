@@ -1,4 +1,5 @@
-%Cette fonction sert à effectuer des tests sur les fonctions du projet
+
+% PROGRAMME DE TEST SEULEMENT!!!
 clc
 clear all
 

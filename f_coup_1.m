@@ -1,5 +1,8 @@
 function [theta_dotdot_1] = f_coup_1(theta,theta_dot,theta_dotdot_2,params)
 
+% FONCTION DE TEST SEULEMENT!!!
+
+
     % Cette fonction évalue la valeur de theta_dotdot 1 en utilisatn l'équation
     % couplée. Elle doit être utilisée pour vérifier que la fonction f est la
     % bonne.
