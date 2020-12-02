@@ -8,25 +8,43 @@ close all
 
     % Définition de paramètres
     l1 = 1.5 ; l2 = 1;
-    I1 = 1 ; I2 = 0;
+    I1 =  0; I2 = 0;
     m1 = 2 ; m2 = 2;
-    k1 = 1 ; k2 = 0.1;
+    k1 = 0 ; k2 = 0;
     g = 9.81;
-    params = [l1,l2,I1,I2,m1,m2,k1,k2,g];
+    tf = 30;
+    dt = 0.001;
+    global params
+    params = [l1,l2,I1,I2,m1,m2,k1,k2,g,tf,dt];
 
-    %etat = [pi/2;pi/2;1;1];
-    %tdd = f(etat,params);
+% Conditions initiales
+global etat_initial
+global etat_initial = [pi/2;pi/2;0;0];
 
-    %tdd1_coup = f_coup_1(etat(1:2),etat(3:4),tdd(4),params);
+% Initialisation du graphe
+fig = figure
+hold on
+% Définition des axes de la figure
+xlim([-(l1 + l2 + 1) (l1 + l2 + 1)]);
+ylim([-(l1 + l2 + 1) (l1 + l2 + 1)]);
+axis square % utile pour maintenir les proportions du graphe
+ax = gca;
+ax.NextPlot = 'replaceChildren'
 
-    %tdd(3) - tdd1_coup;
+% Initialisation des pendules
+global pendules
+pendules = {};
+couleurs = {'r' 'g' 'b' 'm' 'c' 'w' 'k'};
+for config = 1:size(solutions,2)
+    [x1 y1 x2 y2] = position(etat_initial,params);
+    obj = def_pendule(x1(1),y1(1),x2(1),y2(1),couleurs{config});
+    pendules{end+1} = {obj;[];[];[];[]}; % Structure de données qui contient toute l'information sur les objets pendules (graphique + poistion)
+end
+
     
 
 % TEST DE LA FONCTION RK4
 
-etat_initial = [pi/2;pi/2;0;0];
-tf = 30;
-dt = 0.005;
 
 %On génère les données pour les 4 méthodes
 [t_EE, etat_EE] = EE(etat_initial,params,dt,tf); %Euler explicite
@@ -38,20 +56,12 @@ dt = 0.005;
 % différentielles pour chaque méthode. On peut donc fournir cette fonction
 % comme argument aux fonctions de position et d'animation, peu importe sa
 % longueur (donc le nombre de pendules à animer)
-%solutions = {{t_rk4;etat_rk4}};
-solutions = {{t_rk4;etat_rk4},{t_ei;etat_ei}, {t_EE,etat_EE}, {t_V, etat_V}};
+solutions = {{t_rk4;etat_rk4}};
+%solutions = {{t_rk4;etat_rk4},{t_ei;etat_ei}, {t_EE,etat_EE}, {t_V, etat_V}};
 
 
 
-% DONNEES SUR LA FIGURE
-fig = figure
-hold on
-% Définition des axes de la figure
-xlim([-(l1 + l2 + 1) (l1 + l2 + 1)]);
-ylim([-(l1 + l2 + 1) (l1 + l2 + 1)]);
-axis square % utile pour maintenir les proportions du graphe
-ax = gca;
-ax.NextPlot = 'replaceChildren'
+
 
 % Bloc de définition et animation des pendules
 enregistrement = false;

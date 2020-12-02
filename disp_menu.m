@@ -1,5 +1,5 @@
 function [choix] = disp_menu(options,title)
-width = 30; % Largeur du menu
+width = 35; % Largeur du menu
 slct = false;
 while ~slct % Le menu recommence tant qu'une option n'est pas sélectionnée
     clc
@@ -8,7 +8,7 @@ while ~slct % Le menu recommence tant qu'une option n'est pas sélectionnée
     fprintf([bar '\n'])
     for i = 1:length(options)
         blank = [];
-        blank(1:width-7-length(options{i})) = ' ';
+        blank(1:width - 6 - length(num2str(i)) - length(options{i})) = ' ';
         line = ['* ' num2str(i) ' - ' options{i} blank '*' '\n'];
         fprintf(line)
     end
