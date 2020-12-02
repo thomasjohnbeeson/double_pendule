@@ -26,21 +26,20 @@ close all
 
 etat_initial = [pi/2;pi/2;0;0];
 tf = 30;
-dt = 0.005;
+dt = 0.01;
 
-%On génère les données pour les 4 méthodes
-[t_EE, etat_EE] = EE(etat_initial,params,dt,tf); %Euler explicite
-[t_V, etat_V] = Verlet(etat_initial,params,dt,tf); %Verlet
-[t_rk4,etat_rk4] = RK4(etat_initial,params,dt,tf); %Runge-Kutta, ordre 4
-[t_ei,etat_ei] = EI(etat_initial,params,dt,tf); % Euler implicite 
-
+[t_rk4,etat_rk4] = RK4(etat_initial,params,dt,tf);
+[t_ei,etat_ei] = EI(etat_initial,params,dt,tf);
 % On crée une structure de donnees solution qui contient la solution aux équations
 % différentielles pour chaque méthode. On peut donc fournir cette fonction
 % comme argument aux fonctions de position et d'animation, peu importe sa
 % longueur (donc le nombre de pendules à animer)
 %solutions = {{t_rk4;etat_rk4}};
-solutions = {{t_rk4;etat_rk4},{t_ei;etat_ei}, {t_EE,etat_EE}, {t_V, etat_V}};
+solutions = {{t_rk4;etat_rk4},{t_ei;etat_ei}};
 
+% TEST DE LA FONCTION EULER EXPLICITE (EE)
+
+[t_EE, etat_EE] = EE(etat_initial,params,dt,tf);
 
 
 % DONNEES SUR LA FIGURE
@@ -60,11 +59,10 @@ couleurs = {'r' 'g' 'b' 'm' 'c' 'w' 'k'};
 for config = 1:size(solutions,2)
     [x1 y1 x2 y2] = position(solutions{config}{2},params);
     obj = def_pendule(x1(1),y1(1),x2(1),y2(1),couleurs{config})
-    pendules{end+1} = {obj;x1;y1;x2;y2}; % Structure de données qui contient toute l'information sur les objets pendules (graphique + poistion)
+    pendules{end+1} = {obj;x1;y1;x2;y2}; % Structure de données qui contient toute l'information sur les objets penules (graphique + poistion)
 end
 
 animate(pendules,dt,enregistrement)
-
 
 %vidfile = VideoWriter('video_test.mp4','MPEG-4')
 %open(vidfile);
