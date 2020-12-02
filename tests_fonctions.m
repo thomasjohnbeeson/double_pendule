@@ -6,10 +6,10 @@ clear all
 % TEST DE LA FONCTION f.m
 
     % Définition de paramètres
-    l1 = 1.5 ; l2 = 2;
-    I1 = 10 ; I2 = 20;
-    m1 = 5 ; m2 = 2;
-    k1 = 3 ; k2 = 5;
+    l1 = 1.5 ; l2 = 1;
+    I1 = 1 ; I2 = 0;
+    m1 = 2 ; m2 = 2;
+    k1 = 10 ; k2 = 0;
     g = 9.81;
     params = [l1,l2,I1,I2,m1,m2,k1,k2,g];
 
@@ -24,49 +24,89 @@ clear all
 % TEST DE LA FONCTION RK4
 
 etat_initial = [pi/2;pi/2;0;0];
-tf = 40;
+tf = 30;
 dt = 0.01;
 
 [t_rk4,etat_rk4] = RK4(etat_initial,params,dt,tf);
 [t_ei,etat_ei] = EI(etat_initial,params,dt,tf);
+% On crée une structure de donnees solution qui contient la solution aux équations
+% différentielles pour chaque méthode. On peut donc fournir cette fonction
+% comme argument aux fonctions de position et d'animation, peu importe sa
+% longueur (donc le nombre de pendules à animer)
+%solutions = {{t_rk4;etat_rk4}};
+solutions = {{t_rk4;etat_rk4},{t_ei;etat_ei}};
 
-% figure
-% hold on
-% plot(t_rk4,etat_rk4(1:2,:))
-% plot(t_ei,etat_ei(1:2,:))
-% legend("theta_1 RK4","theta_2 RK4","theta_1 EI","theta_2 EI")
-
-%Création des coordonnées dans le bon repère
-% Ici, x est un vecteur [x;y] correspondant à la position
-[x1 y1] = pol2cart(etat_rk4(1,:)+pi/2,l1);
-y1 = -y1; % Il faut inverser l'axe y
-[x2_rel y2_rel] = pol2cart(etat_rk4(2,:)+pi/2,l2);
-% Coordonnées x2 et y2 sont trouvées relativement à x1,y1
-x2 = x1 + x2_rel;
-y2 = y1 - y2_rel;
-
+% DONNEES SUR LA FIGURE
 fig = figure
 hold on
-%fig.Visible = 'off'
+% Définition des axes de la figure
 xlim([-(l1 + l2 + 1) (l1 + l2 + 1)]);
 ylim([-(l1 + l2 + 1) (l1 + l2 + 1)]);
+axis square % utile pour maintenir les proportions du graphe
 ax = gca;
 ax.NextPlot = 'replaceChildren'
+
+% Bloc de définition et animation des pendules
+enregistrement = true;
+pendules = {};
+couleurs = {'r' 'g' 'b' 'm' 'c' 'w' 'k'};
+for config = 1:size(solutions,2)
+    [x1 y1 x2 y2] = position(solutions{config}{2},params);
+    obj = def_pendule(x1(1),y1(1),x2(1),y2(1),couleurs{config})
+    pendules{end+1} = {obj;x1;y1;x2;y2}; % Structure de données qui contient toute l'information sur les objets penules (graphique + poistion)
+end
+
+animate(pendules,dt,enregistrement)
+
 %vidfile = VideoWriter('video_test.mp4','MPEG-4')
 %open(vidfile);
 
-for frame = 1:length(t_rk4)
-plot(ax,x1(frame),y1(frame),'ro','MarkerSize',10)
-plot(ax,x2(frame),y2(frame),'bo','MarkerSize',10)
-animatedline([0,x1(frame)],[0,y1(frame)],'Color','r','LineWidth',2)
-animatedline([x1(frame),x2(frame)],[y1(frame),y2(frame)],'Color','b','LineWidth',2)
 
-drawnow
-pause(dt)
+%for frame = 1:length(x1)
+%     set(pendule_obj(1),'XData',[0,x1(frame)],'YData',[0 y1(frame)])
+%     set(pendule_obj(2),'XData',[x1(frame),x2(frame)],'YData',[y1(frame),y2(frame)])
+%     set(pendule_obj(3),'XData',x1(frame),'YData',y1(frame))
+%     set(pendule_obj(4),'XData',x2(frame),'YData',y2(frame))
+%     
+%     drawnow
+%     pause(dt)
+    
+    
+%     if isempty(obj_graphe)
+%         obj_graphe = [line([0,x1(frame)],[0 y1(frame)],'LineStyle','-','Color','r','LineWidth',2) , ... % Tige 1
+%                       line([x1(frame),x2(frame)],[y1(frame),y2(frame)],'LineStyle','-','Color','b','LineWidth',2) , ... % tige 2
+%                       line(x1(frame),y1(frame),'Marker','.','LineStyle','none','Color','r','MarkerSize',30) , ...
+%                       line(x1(frame),y1(frame),'Marker','.','LineStyle','none','Color','b','MarkerSize',30)] % Masse 1
+%     else
+%         set(obj_graphe(1),'XData',[0,x1(frame)],'YData',[0 y1(frame)])
+%         set(obj_graphe(2),'XData',[x1(frame),x2(frame)],'YData',[y1(frame),y2(frame)])
+%         set(obj_graphe(3),'XData',x1(frame),'YData',y1(frame))
+%     end
+%     if isempty(obj_graphe)
+%         obj_graphe = plot(x1(frame),y1(frame),'ro',... % Masse 1
+%                           x2(frame),y2(frame),'bo',... % Masse 2
+%                           [0,x1(frame)],[0 y1(frame)],'r-',... % Tige 1
+%                           [x1(frame),x2(frame)],[y1(frame),y2(frame)],'b-',... % tige 2
+%                           'MarkerSize',10,...
+%                           'LineWidth',2)
+%     else
+%         set(obj_graphe(1),'XData',x1(frame),'YData',y1(frame))
+%         set(obj_graphe(2),'XData',x2(frame),'YData',y2(frame))
+%         set(obj_graphe(3),'XData',[0,x1(frame)],'YData',[0 y1(frame)])
+%         set(obj_graphe(4),'XData',[x1(frame),x2(frame)],'YData',[y1(frame),y2(frame)])
+%     end
+%     if isempty(tiges)
+%         tiges = plot([0,x1(frame)],[0 y1(frame)],'r-',[x1(frame) x2(frame)],[y1(frame) y2(frame)],'b-','LineWidth',2)
+%     else
+%         set(tiges,'XData',[[0,x1(frame)],[x1(frame),x2(frame)]],'YData',[[0,y1(frame)],[y1(frame),y2(frame)]])
+%     end
+%animatedline([0,x1(frame)],[0,y1(frame)],'Color','r','LineWidth',2)
+%animatedline([x1(frame),x2(frame)],[y1(frame),y2(frame)],'Color','b','LineWidth',2)
+
 
 %M(frame) = getframe(gcf);
 %writeVideo(vidfile,M(frame))
-end
+%end
 %close(vidfile)
 
 %fig.Visible = 'on'
