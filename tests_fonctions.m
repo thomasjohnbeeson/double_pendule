@@ -2,6 +2,7 @@
 % PROGRAMME DE TEST SEULEMENT!!!
 clc
 clear all
+close all
 
 % TEST DE LA FONCTION f.m
 
@@ -9,7 +10,7 @@ clear all
     l1 = 1.5 ; l2 = 1;
     I1 = 1 ; I2 = 0;
     m1 = 2 ; m2 = 2;
-    k1 = 10 ; k2 = 0;
+    k1 = 1 ; k2 = 0.1;
     g = 9.81;
     params = [l1,l2,I1,I2,m1,m2,k1,k2,g];
 
@@ -47,7 +48,7 @@ ax = gca;
 ax.NextPlot = 'replaceChildren'
 
 % Bloc de définition et animation des pendules
-enregistrement = true;
+enregistrement = false;
 pendules = {};
 couleurs = {'r' 'g' 'b' 'm' 'c' 'w' 'k'};
 for config = 1:size(solutions,2)

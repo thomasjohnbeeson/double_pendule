@@ -26,7 +26,7 @@ for frame = 1:length(pendules{1}{2})
         frame = getframe(gcf); % On capture le "frame"
         writeVideo(vidfile,frame) % On écrit le "frame" dans le fichier vidéo
     end
-    pause(dt)
+    pause(0.01)
 end
 
 if enregistrement
