@@ -6,15 +6,15 @@ global etat_initial
 % conditions initiales actuelles
 cond_a_modif = strings([1 4*size(ci,2)]);
 default_values = strings([1 4*size(ci,2)]);
-for i = ci
-    cond_a_modif((i-1)*4 + 1) = ['C' num2str(i) ' : theta_1'];
-    default_values((i-1)*4 + 1) = num2str(etat_initial(1,i));
-    cond_a_modif((i-1)*4 + 2) = ['C' num2str(i) ' : theta_2'];
-    default_values((i-1)*4 + 2) = num2str(etat_initial(2,i));
-    cond_a_modif((i-1)*4 + 3) = ['C' num2str(i) ' : theta_dot_1'];
-    default_values((i-1)*4 + 3) = num2str(etat_initial(3,i));
-    cond_a_modif((i-1)*4 + 4) = ['C' num2str(i) ' : theta_dot_2'];
-    default_values((i-1)*4 + 4) = num2str(etat_initial(4,i));
+for i = 1:length(ci)
+    cond_a_modif((i-1)*4 + 1) = ['C' num2str(ci(i)) ' : theta_1'];
+    default_values((i-1)*4 + 1) = num2str(etat_initial(1,ci(i)));
+    cond_a_modif((i-1)*4 + 2) = ['C' num2str(ci(i)) ' : theta_2'];
+    default_values((i-1)*4 + 2) = num2str(etat_initial(2,ci(i)));
+    cond_a_modif((i-1)*4 + 3) = ['C' num2str(ci(i)) ' : theta_dot_1'];
+    default_values((i-1)*4 + 3) = num2str(etat_initial(3,ci(i)));
+    cond_a_modif((i-1)*4 + 4) = ['C' num2str(ci(i)) ' : theta_dot_2'];
+    default_values((i-1)*4 + 4) = num2str(etat_initial(4,ci(i)));
 end
 
 slct = false;
@@ -37,7 +37,7 @@ end
 % valeurs
 
 for i = 1:length(nouv_ci)
-    etat_initial((min(ci)-1) + i) = str2num(nouv_ci{i});
+    etat_initial((min(ci)-1)*4 + i) = str2num(nouv_ci{i});
 end
 
 end
