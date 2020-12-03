@@ -10,7 +10,7 @@ I1 =  0; I2 = 0;
 m1 = 2 ; m2 = 2;
 k1 = 0 ; k2 = 0;
 g = 9.81;
-tf = 3;
+tf = 1;
 dt = 0.01;
 global params
 params = [l1,l2,I1,I2,m1,m2,k1,k2,g,tf,dt];
@@ -29,14 +29,20 @@ methodes = [3];
 % On peut sélectionne plusieurs méthodes (ex: methodes = [3 4])
 
 % Initialisation du graphe
-fig = figure;
-set(fig,'WindowStyle','normal');
-set(fig,'visible','on');
-hold on
-% Définition des axes de la figure
+fig_anim = figure('Position',[10 400 700 700]);
+set(fig_anim,'WindowStyle','normal');
+set(fig_anim,'visible','on');
+
+% Définition des axes de l'animation
+global axes_pendules;
+axes_pendules = subplot(1,2,1);
 axis square; % utile pour maintenir les proportions du graphe
 ax = gca;
 ax.NextPlot = 'replaceChildren';
+
+% Définition des axes
+global axes_energie;
+axes_energie = subplot(1,2,2);
 
 % Initialisation des pendules
 init_pendules

@@ -4,16 +4,17 @@ function init_pendules
 global params
 global etat_initial
 global methodes
+global axes_pendules
 
 % On supprime ensuite les anciens objets du graphe
-obj_a_supr = findobj(gca, 'Type', 'line');
+obj_a_supr = findobj(axes_pendules, 'Type', 'line');
 if ~isempty(obj_a_supr)
     delete(obj_a_supr);
 end
   
 % On met ensuite à jour les axes du graphe pour les nouvelles dimensions
-xlim([-(params(1) + params(2) + 1) (params(1) + params(2) + 1)]);
-ylim([-(params(1) + params(2) + 1) (params(1) + params(2) + 1)]);
+xlim(axes_pendules,[-(params(1) + params(2) + 1) (params(1) + params(2) + 1)]);
+ylim(axes_pendules,[-(params(1) + params(2) + 1) (params(1) + params(2) + 1)]);
 
 % On défini la variable pendules qui contient l'information sur les
 % pendules (objet graphique, solution, couleur, etc)
@@ -54,7 +55,7 @@ for ci = 1:size(etat_initial,2)
             col = 'k'; % Si il ne reste plus de couleurs, on prend noir
         end
         obj = def_pendule(x1(1),y1(1),x2(1),y2(1),col);
-        pendules{end+1} = {obj;[x1];[y1];[x2];[y2];met;ci;col};% Structure de données qui contient toute l'information sur les objets pendules (graphique + poistion)
+        pendules{end+1} = {obj;[x1];[y1];[x2];[y2];met;ci;col;[];[];[];[]};% Structure de données qui contient toute l'information sur les objets pendules (graphique + poistion)
         lgd_labels(compteur) = [met ' CI ' num2str(ci)]; % Nom du pendule dans la légende
         lgd_elements(end+1) = pendules{end}{1}(1); % On marque la première tige dans la légende
         
