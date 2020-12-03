@@ -10,7 +10,7 @@ close all
     l1 = 1.5 ; l2 = 1;
     I1 =  0; I2 = 0;
     m1 = 2 ; m2 = 2;
-    k1 = 0 ; k2 = 0;
+    k1 = 1 ; k2 = 1;
     g = 9.81;
     tf = 30;
     dt = 0.001;
@@ -19,7 +19,7 @@ close all
 
 % Conditions initiales
 global etat_initial
-global etat_initial = [pi/2;pi/2;0;0];
+etat_initial = [pi/2;pi/2;0;0];
 
 % Initialisation du graphe
 fig = figure
@@ -52,11 +52,23 @@ end
 [t_rk4,etat_rk4] = RK4(etat_initial,params,dt,tf); %Runge-Kutta, ordre 4
 [t_ei,etat_ei] = EI(etat_initial,params,dt,tf); % Euler implicite 
 
+
+%Énergie
+
+E_EE = Energie(etat_EE, params, t_EE);
+E_V = Energie(etat_V, params, t_V);
+E_rk4 = Energie(etat_rk4, params, t_rk4);
+E_ei = Energie(etat_ei, params, t_ei);
+
+hold on
+plot(t_EE, E_EE, t_V, E_V, t_rk4, E_rk4, t_ei, E_ei)
+legend('EE', 'V', 'rk4', 'E_ei')
+
 % On crée une structure de donnees solution qui contient la solution aux équations
 % différentielles pour chaque méthode. On peut donc fournir cette fonction
 % comme argument aux fonctions de position et d'animation, peu importe sa
 % longueur (donc le nombre de pendules à animer)
-solutions = {{t_rk4;etat_rk4}};
+% solutions = {{t_rk4;etat_rk4}};
 %solutions = {{t_rk4;etat_rk4},{t_ei;etat_ei}, {t_EE,etat_EE}, {t_V, etat_V}};
 
 
