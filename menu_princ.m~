@@ -2,6 +2,7 @@ function menu_princ
 global methodes
 global pendules
 global params
+global etat_initial
 
 title = 'Menu principal';
 options = {'Paramètres','Sélection méthode','Changer/ajouter des conditions initiales','Animer','Enregistrer vidéo','Quitter'};
@@ -23,13 +24,36 @@ switch choix
         menu_princ
         
     case 3 % Changer les conditions initiales
-        menu_CI
                     
     case 4 % Animer
         % la fonction solutionner solutionne chaque pendule un par un selon
         % les méthodes définies dans l'objet "pendules"
         solutionner
-
+        
+%         for i = 1:size(pendules,2)
+%             switch pendules{i}{6}
+%                 case "EE" % Ce pendule utilise EE
+%                     [t, etat] = EE(etat_initial(:,pendules{i}{7}),params,params(11),params(10));
+%                     [x1 y1 x2 y2] = position(etat,params);
+%                     pendules{i}{2} = x1 ; pendules{i}{3} = y1 ; pendules{i}{4} = x2 ; pendules{i}{5} = y2 ; % On stocke les solutions dans les objets pendules 
+%                 
+%                 case "EI" % Ce pendule utilise EI
+%                     [t, etat] = EI(etat_initial(:,pendules{i}{7}),params,params(11),params(10));
+%                     [x1 y1 x2 y2] = position(etat,params);
+%                     pendules{i}{2} = x1 ; pendules{i}{3} = y1 ; pendules{i}{4} = x2 ; pendules{i}{5} = y2 ; % On stocke les solutions dans les objets pendules
+%                 
+%                 case "Verlet" % Ce pendule utilise Verlet
+%                     [t, etat] = Verlet(etat_initial(:,pendules{i}{7}),params,params(11),params(10));
+%                     [x1 y1 x2 y2] = position(etat,params);
+%                     pendules{i}{2} = x1 ; pendules{i}{3} = y1 ; pendules{i}{4} = x2 ; pendules{i}{5} = y2 ; % On stocke les solutions dans les objets pendules
+%                 
+%                 case "RK4" % Ce pendule utilise RK4
+%                     [t, etat] = RK4(etat_initial(:,pendules{i}{7}),params,params(11),params(10));
+%                     [x1 y1 x2 y2] = position(etat,params);
+%                     pendules{i}{2} = x1 ; pendules{i}{3} = y1 ; pendules{i}{4} = x2 ; pendules{i}{5} = y2 ; % On stocke les solutions dans les objets pendules
+%             end
+            
+        end
         % On anime ensuite les pendules
         animate(pendules,params(11),false)
         fprintf("Simulation terminée!")
@@ -46,7 +70,6 @@ switch choix
             clc
             choix = input("Êtes-vous sûr de vouloir continuer?\nL'enregistrement peut prendre plusieurs minutes! [y/n] : ",'s')
             if choix == 'y' % On procède avec l'enregistrement
-                solutionner % Cette fonction effectue la résolution des pendules
                 animate(pendules,params(11),true)
                 fprintf("\nL'enregistrement a été un succès!")
                 slct = true;
@@ -63,10 +86,10 @@ switch choix
             end
         end
         
-    case 6 % Quitter 
+    case 6 % Quitter
         clc
         clear all
         close all
-        return % termine le programme
+        return
 end
 end

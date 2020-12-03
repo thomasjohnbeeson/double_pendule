@@ -1,5 +1,5 @@
 function [choix] = disp_menu(options,title)
-width = 35; % Largeur du menu
+width = 48; % Largeur du menu
 slct = false;
 while ~slct % Le menu recommence tant qu'une option n'est pas sélectionnée
     clc
