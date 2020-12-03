@@ -88,8 +88,6 @@ animate(pendules,dt,enregistrement)
 %     
 %     drawnow
 %     pause(dt)
-    
-    
 %     if isempty(obj_graphe)
 %         obj_graphe = [line([0,x1(frame)],[0 y1(frame)],'LineStyle','-','Color','r','LineWidth',2) , ... % Tige 1
 %                       line([x1(frame),x2(frame)],[y1(frame),y2(frame)],'LineStyle','-','Color','b','LineWidth',2) , ... % tige 2
