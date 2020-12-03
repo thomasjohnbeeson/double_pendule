@@ -20,7 +20,8 @@ for frame = 1:length(pendules{1}{2})
         set(pendules{obj}{1}(2),'XData',[pendules{obj}{2}(frame),pendules{obj}{4}(frame)],'YData',[pendules{obj}{3}(frame),pendules{obj}{5}(frame)])
         set(pendules{obj}{1}(3),'XData',pendules{obj}{2}(frame),'YData',pendules{obj}{3}(frame))
         set(pendules{obj}{1}(4),'XData',pendules{obj}{4}(frame),'YData',pendules{obj}{5}(frame))
-        drawnow
+        addpoints(pendules{obj}{1}(5),pendules{obj}{13}(frame),pendules{obj}{14}(frame))
+        drawnow limitrate
  
     end
     

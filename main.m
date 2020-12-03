@@ -10,7 +10,7 @@ I1 =  0; I2 = 0;
 m1 = 2 ; m2 = 2;
 k1 = 0 ; k2 = 0;
 g = 9.81;
-tf = 1;
+tf = 10;
 dt = 0.01;
 global params
 params = [l1,l2,I1,I2,m1,m2,k1,k2,g,tf,dt];
@@ -19,7 +19,7 @@ params = [l1,l2,I1,I2,m1,m2,k1,k2,g,tf,dt];
 global etat_initial
 etat_initial = [[pi/2;pi/2;0;0],[0;0;5;0]];
 
-% Méthodes choisies la méthode par défaut est Verlet
+% Méthodes choisies.La méthode par défaut est Verlet
 global methodes
 methodes = [3];
 % EE = 1
@@ -29,7 +29,8 @@ methodes = [3];
 % On peut sélectionne plusieurs méthodes (ex: methodes = [3 4])
 
 % Initialisation du graphe
-fig_anim = figure('Position',[10 400 700 700]);
+%fig_anim = figure('Position',[10 250 1000 450]);
+fig_anim = figure('Units', 'normalized', 'Position', [0, 0.4, 0.9, 0.6]);
 set(fig_anim,'WindowStyle','normal');
 set(fig_anim,'visible','on');
 
@@ -37,12 +38,18 @@ set(fig_anim,'visible','on');
 global axes_pendules;
 axes_pendules = subplot(1,2,1);
 axis square; % utile pour maintenir les proportions du graphe
-ax = gca;
 ax.NextPlot = 'replaceChildren';
+title("Double Pendule")
+xlabel("x (m)")
+ylabel("y (m)")
 
 % Définition des axes
 global axes_energie;
 axes_energie = subplot(1,2,2);
+axis square
+title("Énergie")
+xlabel("Temps (s)")
+ylabel("Énergie (J)")
 
 % Initialisation des pendules
 init_pendules
