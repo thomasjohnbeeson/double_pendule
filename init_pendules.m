@@ -8,9 +8,9 @@ global axes_pendules
 global axes_energie
 
 % On supprime ensuite les anciennes lignes du graphe
-lignes_a_supr = findobj(axes_pendules, 'Type', 'line');
-if ~isempty(lignes_a_supr)
-    delete(lignes_a_supr);
+obj_a_supr = [findobj(axes_pendules, 'Type', 'line');findobj(axes_pendules, 'Type', 'AnimatedLine');findobj(axes_energie, 'Type', 'AnimatedLine')];
+if ~isempty(obj_a_supr)
+    delete(obj_a_supr);
 end
   
 % On met ensuite à jour les axes du graphe pour les nouvelles dimensions

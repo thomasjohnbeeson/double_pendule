@@ -28,12 +28,12 @@ switch choix
     case 4 % Animer
         % la fonction solutionner solutionne chaque pendule un par un selon
         % les méthodes définies dans l'objet "pendules"
+        init_pendules
         solutionner
 
         % On anime ensuite les pendules
         animate(pendules,params(11),false)
         fprintf("Simulation terminée!")
-        init_pendules
         pause(2)
         menu_princ
         
@@ -46,11 +46,11 @@ switch choix
             clc
             choix = input("Êtes-vous sûr de vouloir continuer?\nL'enregistrement peut prendre plusieurs minutes! [y/n] : ",'s')
             if choix == 'y' % On procède avec l'enregistrement
+                init_pendules
                 solutionner % Cette fonction effectue la résolution des pendules
                 animate(pendules,params(11),true)
                 fprintf("\nL'enregistrement a été un succès!")
                 slct = true;
-                init_pendules
                 pause(2)
                 menu_princ
             elseif choix == 'n'
