@@ -75,6 +75,6 @@ for obj = 1:length(pendules)
     energ(1,obj) = max(pendules{obj}{14});
     energ(2,obj) = min(pendules{obj}{14});
 end
-ylim(axes_energie,[min(energ(2,:))-1 max(energ(1,:))+1]);
+ylim(axes_energie,[min(energ(2,:))-10 max(energ(1,:))+10]);
 
 end
