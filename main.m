@@ -1,27 +1,44 @@
-%main
 
+
+%%%%%%%%%%%%%%%%%%%%%% NOTE AU CORRECTEUR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Si on ne veut pas lancer le LOGICIEL INTERACTIF (GUI), et simplement modifier
+% les paramètres directement dans main.m, on peut mettre la ligne 66 en
+% commentaire "menu_princ"
+
+% Pour faire la RÉSOLUTION à partir des conditions initiales et de la
+% méthode choisie plus bas, simplement lancer la fonctions "solutionner"
+% Cette fonction se charge d'appeler EE, EI, Verlet, RK4 pour la
+% résolution, puis stocke le résultat dans l'objet "pendules"
+% solutionner
+
+% Pour ANIMER le pendule, on appelle la fonction "animate"
+% animate
 clc
 clear all
 close all
 
 % Définition de paramètres par défauts
-l1 = 1.5 ; l2 = 1;
-I1 =  0; I2 = 0;
-m1 = 2 ; m2 = 2;
+l1 = 2 ; l2 = 4;
+I1 =  1; I2 = 10;
+m1 = 10 ; m2 = 10;
 k1 = 0 ; k2 = 0;
 g = 9.81;
-tf = 10;
+tf = 60;
 dt = 0.01;
+
+% Activer/désactiver les trajectoires des pendules
+trajectoires = false; 
 global params
-params = [l1,l2,I1,I2,m1,m2,k1,k2,g,tf,dt];
+params = [l1,l2,I1,I2,m1,m2,k1,k2,g,tf,dt,trajectoires];
 
 % Conditions initiales
 global etat_initial
-etat_initial = [[pi/2;pi/2;0;0],[0;0;5;0]];
+etat_initial = [[3*pi/4;pi;0;0]];
 
-% Méthodes choisies.La méthode par défaut est Verlet
+% Méthodes choisies.
 global methodes
-methodes = [3];
+methodes = [3 4];
 % EE = 1
 % EI = 2
 % Verlet = 3
@@ -52,7 +69,7 @@ xlabel("Temps (s)")
 ylabel("Énergie (J)")
 
 % Initialisation des pendules
-init_pendules
+init_pendules 
 
-% On part le programme interactif de menus
+% On part le programme interactif de menus (GUI)
 menu_princ

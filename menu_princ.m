@@ -1,3 +1,24 @@
+% _____________________________________________________________ 
+% Fonction 'menu_princ' :
+%
+% ÉLÉMENT D'INTERFACE GRAPHIQUE. PAS DE RÔLE IMPORTANT DANS LA RÉSOLUTION
+%
+% Description : 
+% Cette fonction sans arguments gère les fonctionnalitées associées au menu
+% principal. À partir de ce menu, l'utilisateur à accès au menu des
+% paramètres, au menu des conditions initales, il peut changer la méthode
+% d'intégration, animer le pendule ou créer une vidéo MPEG-4 de sa
+% simulation.
+% Pour effectuer la RÉSOLUTION, ce menu appelle la fonction 'solutionner',
+% puis l'anime avec la fonction 'animate'. Tous autre élément sert à
+% l'interface utilisateur (UI).
+%
+% ------------------------------------------------- 
+% Auteur : Thomas John Beeson 
+% Date : 30/11/2020
+% -------------------------------------------------
+% _____________________________________________________________
+
 function menu_princ
 global methodes
 global pendules
@@ -9,7 +30,7 @@ choix = disp_menu(options,title);
 
 switch choix
     case 1 % Accéder au menu des paramètres
-        menu_parametres
+        menu_parametres % Renvoi au menu des paramètres
         
     case 2 % Changer la méthode de résolution numérique 
         list = ["Euler explicite" "Euler implicite" "Verlet" "Runge Kutta 4"];
@@ -23,17 +44,17 @@ switch choix
         menu_princ
         
     case 3 % Changer les conditions initiales
-        menu_CI
+        menu_CI % Renvoi au menu des CI
                     
     case 4 % Animer
         % la fonction solutionner solutionne chaque pendule un par un selon
         % les méthodes définies dans l'objet "pendules"
-        solutionner
+        init_pendules
+        solutionner % Fait la résolution complète de tous les pendules
 
         % On anime ensuite les pendules
         animate(pendules,params(11),false)
         fprintf("Simulation terminée!")
-        init_pendules
         pause(2)
         menu_princ
         
@@ -46,11 +67,11 @@ switch choix
             clc
             choix = input("Êtes-vous sûr de vouloir continuer?\nL'enregistrement peut prendre plusieurs minutes! [y/n] : ",'s')
             if choix == 'y' % On procède avec l'enregistrement
+                init_pendules
                 solutionner % Cette fonction effectue la résolution des pendules
                 animate(pendules,params(11),true)
                 fprintf("\nL'enregistrement a été un succès!")
                 slct = true;
-                init_pendules
                 pause(2)
                 menu_princ
             elseif choix == 'n'

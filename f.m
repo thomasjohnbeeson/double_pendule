@@ -38,7 +38,7 @@ g = params(9)  ;
 % On a deux équations couplées, on les combine dans un système
 % matriciel Ax = b pour les résoudre
 % Matrice des coefficients d'accélération (diagonale)
-A = [I1 + m1*l1^2 + m2*l2^2 , m2*l1*l2*cos(etat(1)-etat(2))
+A = [I1 + l1^2*(m1 + m2) , m2*l1*l2*cos(etat(1)-etat(2))
      m2*l2*l1*cos(etat(1)-etat(2)) , I2 + m2*l2^2];
 
 % Vecteur b (résidu des équations couplées)

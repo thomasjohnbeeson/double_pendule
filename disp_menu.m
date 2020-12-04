@@ -1,3 +1,22 @@
+% _____________________________________________________________ 
+% Fonction 'disp_menu' :
+%
+% ÉLÉMENT D'INTERFACE GRAPHIQUE. PAS DE RÔLE IMPORTANT DANS LA RÉSOLUTION
+%
+% Description : 
+% Cette fonction crée un menu dans le "Command Window" Elle est purement esthétiques.
+%
+% Arguments d'entrée : 
+% - options : Liste de "strings" à afficher comme option
+% - title : Titre du menu
+%
+% Arguments de sortie :
+% - choix : Renvoie le choix de l'utilisateur 
+% ------------------------------------------------- 
+% Auteur : Thomas John Beeson 
+% Date : 30/11/2020
+% -------------------------------------------------
+% _____________________________________________________________
 function [choix] = disp_menu(options,title)
 width = 48; % Largeur du menu
 slct = false;

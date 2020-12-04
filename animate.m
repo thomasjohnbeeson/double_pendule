@@ -1,4 +1,19 @@
+% _____________________________________________________________ 
+% Fonction 'animate' :
+%
+% Description : 
+% Cette fonction sans arguments lance l'animation des pendules et des
+% graphes d'énergie. Il est crucial de lancer le programme 'main' avant.
+%
+% ------------------------------------------------- 
+% Auteur : Thomas John Beeson 
+% Date : 30/11/2020
+% -------------------------------------------------
+% _____________________________________________________________
+
 function animate(pendules,dt,enregistrement)
+
+global params
 
 if enregistrement % Initialiser l'enregistrement
     set(gcf,'visible','off')
@@ -21,6 +36,9 @@ for frame = 1:length(pendules{1}{2})
         set(pendules{obj}{1}(3),'XData',pendules{obj}{2}(frame),'YData',pendules{obj}{3}(frame))
         set(pendules{obj}{1}(4),'XData',pendules{obj}{4}(frame),'YData',pendules{obj}{5}(frame))
         addpoints(pendules{obj}{1}(5),pendules{obj}{13}(frame),pendules{obj}{14}(frame))
+        if params(12) % Tracer trajectoires ou pas (true/false)
+            addpoints(pendules{obj}{1}(6),pendules{obj}{4}(frame),pendules{obj}{5}(frame))
+        end
         drawnow limitrate
  
     end

@@ -38,9 +38,9 @@ etat = etat_initial;
 
 %On calcule l'accélération initiale
 accel = f(etat_initial,params);
-accel = accel(3:4);
+accel = accel(3:4); % Juste les éléments 3 et 4 de la fonction f
 
-while t < tf
+while t(end) < tf
     v_half = etat(3:4,end) + 0.5*dt*accel;
     etat(1:2,end + 1) = etat(1:2, end) + dt*v_half; %Calcul de la position au temps t + dt
     accel = f([etat(1:2, end) ; v_half], params); %Calcul de la nouvelle accélération
