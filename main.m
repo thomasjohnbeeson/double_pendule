@@ -14,13 +14,14 @@
 
 % Pour ANIMER le pendule, on appelle la fonction "animate"
 % animate
+
 clc
 clear all
 close all
 
 % Définition de paramètres par défauts
 l1 = 0.5 ; l2 = 4;
-I1 =  1; I2 = 10;
+I1 =  0; I2 = 0;
 m1 = 10 ; m2 = 10;
 k1 = 0 ; k2 = 0;
 g = 9.81;
@@ -71,5 +72,10 @@ ylabel("Énergie (J)")
 % Initialisation des pendules
 init_pendules 
 
-% On part le programme interactif de menus (GUI)
+% On peut ensuite simplement appeler les fonctions 'solutionner' et 'animate' 
+% pour voir le résultat, au lieu de partir le GUI
+% solutionner
+% animate
+
+% On part le programme interactif de menus (GUI) (Optionnel)
 menu_princ
