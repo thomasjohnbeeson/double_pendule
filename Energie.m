@@ -35,7 +35,7 @@ k2 = params(8);
 g = params(9);
 
 E_cin = 0.5*m1*l1^2.*(etat(3,:).^2) + 0.5*m2*l1^2.*(etat(3,:).^2) + 0.5*m2*l2^2.*(etat(4,:).^2) ...
-    + 0.5*I1.*(etat(3,:).^2) + + 0.5*I2.*(etat(4,:).^2) + m2*l1*l2.*etat(3,:).*etat(4,:).*cos(etat(1,:) - etat(2,:)); %?nergie cin?tique du syst?me
+    + 0.5*I1.*(etat(3,:).^2) + 0.5*I2.*(etat(4,:).^2) + m2*l1*l2.*etat(3,:).*etat(4,:).*cos(etat(1,:) - etat(2,:)); %?nergie cin?tique du syst?me
 E_pot = -g*(l1*cos(etat(1,:)))*m1 - g*(l1*cos(etat(1,:)) + l2*cos(etat(2,:)))*m2; 
 
 E_sys = E_cin + E_pot;

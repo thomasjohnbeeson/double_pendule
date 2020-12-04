@@ -49,13 +49,6 @@ while t(end) < tf
     
     % Début de la résolution du sytème d'équations non-linéaire de
     % différences finies par la méthode de Newton-Raphson
-    
-    % Pour conserver la généralité de la méthode Newton-Raphson, on utilise
-    % les variables temporaires xi pour représenter l'état précédent du 
-    % système, et x pour représenter l'état du système au temps t+dt, la 
-    % valeur de x est sujette au processus itératif de Newton-Raphson, puis
-    % une fois une valeur de stable trouvée, elle est stockée comme étant
-    % l'état du système au temps t+dt tq x = etat(:,end+1)
     dx = 1; % Vecteur de correction dx initialisé comme = 1
     it = 0; % Compteur d'itérations
     xi = etat(:,end);
@@ -71,8 +64,7 @@ while t(end) < tf
         dx = J\-R;
         x = x + dx;
         it = it+1;
-    end
-    
+    end    
     % Stockage des valeurs trouvées par Newton-Raphson
     etat(:,end+1) = x;
     t(end+1) = t(end) + dt;
