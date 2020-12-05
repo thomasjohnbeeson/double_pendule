@@ -2,8 +2,19 @@
 % Fonction 'animate' :
 %
 % Description : 
-% Cette fonction sans arguments lance l'animation des pendules et des
+% Cette fonction lance l'animation des pendules et des
 % graphes d'énergie. Il est crucial de lancer le programme 'main' avant.
+%
+% Arguments d'entrée:
+% - pendules: Pendules est une structure de données "cell" qui contient toute
+% l'information concernant les pendules à animer. Elle contient les objets
+% graphique, les solutions (vecteurs) pour les points x1,y1,x2,y2, les solutions en
+% coordonnées polaires, la couleur, la méthode d'intégration utilisée et le
+% vecteur d'énergie.
+% - dt: Le pas de temps
+% - enregistrement: Une valeur booléenne qui détermine si l'animation doit
+% être enregistrée ou pas. Si cette valeur est activée, le graphe ne sera
+% pas visible pour améliorer la vitesse d'enregistrement
 %
 % ------------------------------------------------- 
 % Auteur : Thomas John Beeson 
@@ -31,15 +42,17 @@ end
 % Boucle de l'animation
 for frame = 1:length(pendules{1}{2}) 
     for obj = 1:size(pendules,2) % On veut sélectionner tous les pendules à animer
-        set(pendules{obj}{1}(1),'XData',[0,pendules{obj}{2}(frame)],'YData',[0 pendules{obj}{3}(frame)])
-        set(pendules{obj}{1}(2),'XData',[pendules{obj}{2}(frame),pendules{obj}{4}(frame)],'YData',[pendules{obj}{3}(frame),pendules{obj}{5}(frame)])
-        set(pendules{obj}{1}(3),'XData',pendules{obj}{2}(frame),'YData',pendules{obj}{3}(frame))
-        set(pendules{obj}{1}(4),'XData',pendules{obj}{4}(frame),'YData',pendules{obj}{5}(frame))
-        addpoints(pendules{obj}{1}(5),pendules{obj}{13}(frame),pendules{obj}{14}(frame))
+        set(pendules{obj}{1}(1),'XData',[0,pendules{obj}{2}(frame)],'YData',[0 pendules{obj}{3}(frame)]) % Tige 1
+        set(pendules{obj}{1}(2),'XData',[pendules{obj}{2}(frame),pendules{obj}{4}(frame)],'YData',[pendules{obj}{3}(frame),pendules{obj}{5}(frame)]) % Tige 2
+        set(pendules{obj}{1}(3),'XData',pendules{obj}{2}(frame),'YData',pendules{obj}{3}(frame)) % Masse 1
+        set(pendules{obj}{1}(4),'XData',pendules{obj}{4}(frame),'YData',pendules{obj}{5}(frame)) % Masse 2
+        addpoints(pendules{obj}{1}(5),pendules{obj}{13}(frame),pendules{obj}{14}(frame)) % Énergie
         if params(12) % Tracer trajectoires ou pas (true/false)
-            addpoints(pendules{obj}{1}(6),pendules{obj}{4}(frame),pendules{obj}{5}(frame))
+            addpoints(pendules{obj}{1}(6),pendules{obj}{4}(frame),pendules{obj}{5}(frame)) % Trajectoire
         end
+        addpoints(pendules{obj}{1}(7),pendules{obj}{13}(frame),pendules{obj}{5}(frame)) % Position
         drawnow limitrate
+        pause(0.01)
  
     end
     
@@ -47,7 +60,7 @@ for frame = 1:length(pendules{1}{2})
         frame = getframe(gcf); % On capture le "frame"
         writeVideo(vidfile,frame) % On écrit le "frame" dans le fichier vidéo
     end
-    pause(0.01)
+    pause(dt)
 end
 
 if enregistrement

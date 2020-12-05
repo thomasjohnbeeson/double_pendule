@@ -25,9 +25,10 @@ global etat_initial
 global methodes
 global axes_pendules
 global axes_energie
+global axes_position
 
 % On supprime ensuite les anciennes lignes du graphe
-obj_a_supr = [findobj(axes_pendules, 'Type', 'line');findobj(axes_pendules, 'Type', 'AnimatedLine');findobj(axes_energie, 'Type', 'AnimatedLine')];
+obj_a_supr = [findobj(axes_pendules, 'Type', 'line');findobj(axes_pendules, 'Type', 'AnimatedLine');findobj(axes_energie, 'Type', 'AnimatedLine');findobj(axes_position, 'Type', 'AnimatedLine')];
 if ~isempty(obj_a_supr)
     delete(obj_a_supr);
 end
@@ -35,14 +36,19 @@ end
 % On met ensuite à jour les axes du graphe pour les nouvelles dimensions
 xlim(axes_pendules,[-(params(1) + params(2) + 1) (params(1) + params(2) + 1)]);
 ylim(axes_pendules,[-(params(1) + params(2) + 1) (params(1) + params(2) + 1)]);
+% Axes énergie
 xlim(axes_energie,[0 params(10)]);
-% Pour définir les limites de l'axe y, on doit trouver l'énergie initiale
+% Pour définir les limites de l'axe y d'énergie, on doit trouver l'énergie initiale
 % du système
 energ_init = zeros(1,size(etat_initial,2));
 for i = 1:size(etat_initial,2) % On trouve la valeur maximale d'énergie parmi les conditions initiales présentes
     energ_init(i) = Energie(etat_initial(:,i),params,0);
 end
 ylim(axes_energie,[-(abs(max(energ_init))+10) abs(max(energ_init))+10]);
+% Axes position
+xlim(axes_position,[0 params(10)]);
+ylim(axes_position,[-(params(1) + params(2) + 1) (params(1) + params(2) + 1)]);
+
 
 % On défini la variable pendules qui contient l'information sur les
 % pendules (objet graphique, solution, couleur, etc)
@@ -57,7 +63,7 @@ lgd_elements = [];
 compteur = 0;
 
 % Couleurs possibles pour le pendule
-couleurs = {'r' 'g' 'b' 'm' 'c' 'w' 'k'};
+couleurs = {'r' 'g' 'b' 'm' 'c' 'k' 'w'};
 
 
 % On remplit ensuite la variable "pendules" en ordre de méthode, puis de
@@ -96,6 +102,7 @@ for ci = 1:size(etat_initial,2)
 end
 legend(axes_pendules,lgd_elements,lgd_labels)
 legend(axes_energie,lgd_elements,lgd_labels)
+legend(axes_position,lgd_elements,lgd_labels)
 end
 
 %% Fonction def_pendule %%
@@ -104,6 +111,7 @@ end
 function [pendule_obj] = def_pendule(x1_i,y1_i,x2_i,y2_i,couleur)
 global axes_pendules
 global axes_energie
+global axes_position
 
 % On défini les objets graphiques pour les 2 tiges, les 2 masses, le
 % graphe d'énergie et la trajectoire
@@ -112,6 +120,7 @@ pendule_obj = [line(axes_pendules,[0,x1_i],[0 y1_i],'LineStyle','-','Color',coul
                       line(axes_pendules,x1_i,y1_i,'Marker','.','LineStyle','none','Color',couleur,'MarkerSize',30) , ... % Masse 1
                       line(axes_pendules,x2_i,y2_i,'Marker','.','LineStyle','none','Color',couleur,'MarkerSize',30) , ... $ Masse 2
                       animatedline(axes_energie,'LineStyle','-','Color',couleur,'LineWidth',1) , ... % Énergie
-                      animatedline(axes_pendules,'LineStyle','--','Color',couleur,'LineWidth',1)]; %Trajectoires
+                      animatedline(axes_pendules,'LineStyle',':','Color',couleur,'LineWidth',1) , ... % Trajectoire
+                      animatedline(axes_position,'LineStyle','-','Color',couleur,'LineWidth',1)]; %Position y2
                   
 end
