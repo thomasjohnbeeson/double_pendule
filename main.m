@@ -12,7 +12,7 @@
 % qui décide de modifier les paramètres, la méthode d'intégration, les
 % conditions initiales, et qui prend la décision d'animer le système. Quand
 % l'utilisateur sélectionner l'option 'animer', le logiciel résout les
-% équations différentielles et lance l'animation.
+% équations différentielles 'solutionner.m' et lance l'animation.
 %
 % ------------------------------------------------- 
 % Auteur : Thomas John Beeson 

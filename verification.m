@@ -76,6 +76,7 @@ legend("Analytique","RK4","Euler explicite","Verlet","Euler implicite")
  xlabel("Temps (s)")
  ylabel("Amplitude (m)")
  title("Amplitude de l'oscillateur harmonique selon la méthode à dt=0.01")
+ set(gca,'FontSize',14)
 
 % Graphes des erreurs
  figure
@@ -88,6 +89,7 @@ legend("Analytique","RK4","Euler explicite","Verlet","Euler implicite")
  xlabel("Temps (s)")
  ylabel("Erreur (m)")
  title("Erreurs sur l'oscillateur harmonique à dt=0.01s")
+ set(gca,'FontSize',14)
  
  % Graphes de l'énergie
  figure
@@ -100,6 +102,7 @@ legend("Analytique","RK4","Euler explicite","Verlet","Euler implicite")
  xlabel("Temps (s)")
  ylabel("Énergie (J)")
  title("Énergie de l'oscillateur selon la méthode")
+ set(gca,'FontSize',14)
 
 %% Fonctions de test
 % La fonction fonc_test() calcule la différentielle d'un oscillateur
